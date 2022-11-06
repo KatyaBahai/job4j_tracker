@@ -7,9 +7,11 @@ public class Cat {
     public void show() {
         System.out.println(this.name + " had " + this.food);
     }
+
     public void eat(String meat) {
         this.food = meat;
     }
+
     public void giveNick(String nick) {
         this.name = nick;
     }
