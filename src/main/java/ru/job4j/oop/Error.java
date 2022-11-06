@@ -30,4 +30,5 @@ public class Error {
         Error errorThree = new Error(false, 0, "No error found");
         errorThree.info();
     }
+
 }
