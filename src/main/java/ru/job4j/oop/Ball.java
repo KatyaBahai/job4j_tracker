@@ -7,7 +7,6 @@ public class Ball {
         } else {
             System.out.println("Ball has escaped");
         }
-
     }
 }
 
