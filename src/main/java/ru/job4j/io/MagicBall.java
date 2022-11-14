@@ -10,7 +10,7 @@ public class MagicBall {
         String question = input.nextLine();
         int random = new Random().nextInt(3);
         String answer;
-        switch(random) {
+        switch (random) {
             case 0 -> answer = "Да";
             case 1 -> answer = "Нет";
             default -> answer = "Может быть";
