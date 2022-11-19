@@ -7,7 +7,6 @@ public class FindAllActions implements UserAction {
         this.out = out;
     }
 
-
     @Override
     public String name() {
         return "Show all items";
