@@ -10,11 +10,12 @@ public class StartUITest {
                     new String[] {"0", "Item name", "1"}
             );
             Tracker tracker = new Tracker();
+            Output out = new StubOutput();
             UserAction[] actions = {
-                    new CreateAction(),
+                    new CreateAction(out),
                     new ExitProgram()
             };
-            new StartUI().init(in, tracker, actions);
+            new StartUI(out).init(in, tracker, actions);
             assertThat(tracker.findAll()[0].getName()).isEqualTo("Item name");
         }
 
@@ -26,11 +27,12 @@ public class StartUITest {
         Input in = new StubInput(
                 new String[] {"0", String.valueOf(item.getId()), replacedName, "1"}
         );
+        Output out = new StubOutput();
         UserAction[] actions = {
-                new ReplaceAction(),
+                new ReplaceAction(out),
                 new ExitProgram()
         };
-        new StartUI().init(in, tracker, actions);
+        new StartUI(out).init(in, tracker, actions);
         assertThat(tracker.findById(item.getId()).getName()).isEqualTo(replacedName);
     }
 
@@ -41,11 +43,12 @@ public class StartUITest {
         Input in = new StubInput(
                 new String[] {"0", String.valueOf(item.getId()), "1"}
         );
+        Output out = new StubOutput();
         UserAction[] actions = {
-                new DeleteAction(),
+                new DeleteAction(out),
                 new ExitProgram()
         };
-        new StartUI().init(in, tracker, actions);
+        new StartUI(out).init(in, tracker, actions);
         assertThat(tracker.findById(item.getId())).isNull();
     }
 }
