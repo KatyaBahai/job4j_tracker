@@ -16,7 +16,7 @@ class FactTest {
         }
 
     @Test
-    public void whenStart1Finish10IsSum44() {
+    public void whenNumber5Factorial120() {
         int number = 5;
         int expected = 120;
         int result = new Fact().calc(number);
