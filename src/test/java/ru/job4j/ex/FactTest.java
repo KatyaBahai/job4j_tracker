@@ -14,4 +14,12 @@ class FactTest {
                 });
         assertThat(exception.getMessage()).isEqualTo("N can't be less than 0");
         }
+
+    @Test
+    public void whenStart1Finish10IsSum44() {
+        int number = 5;
+        int expected = 120;
+        int result = new Fact().calc(number);
+        assertThat(result).isEqualTo(expected);
+    }
 }
