@@ -19,9 +19,9 @@ public class PasswordValidator {
         }
         if (!hasCorrectChars(characters)) {
             throw new IllegalArgumentException(
-                    "You must have a least one uppercase letter, " +
-                            "one lowercase letter, one special character " +
-                            "and one digit."
+                    "You must have a least one uppercase letter, "
+                            + "one lowercase letter, one special character "
+                            + "and one digit."
             );
         }
         return password;
@@ -55,7 +55,7 @@ public class PasswordValidator {
             if (!Character.isLetterOrDigit(character)) {
                 hasSpecialChar++;
             }
-            if (hasUpperCase > 0 && hasLowerCase > 0 && hasDigit > 0 && hasSpecialChar >0) {
+            if (hasUpperCase > 0 && hasLowerCase > 0 && hasDigit > 0 && hasSpecialChar > 0) {
                 return true;
             }
         }
