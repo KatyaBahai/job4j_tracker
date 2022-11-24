@@ -17,13 +17,7 @@ public class PasswordValidator {
                     "A password shouldn't contain substrings: qwerty, 12345, password, admin, user."
             );
         }
-        if (!hasCorrectChars(characters)) {
-            throw new IllegalArgumentException(
-                    "You must have a least one uppercase letter, "
-                            + "one lowercase letter, one special character "
-                            + "and one digit."
-            );
-        }
+        hasCorrectChars(characters);
         return password;
     }
 
@@ -36,7 +30,7 @@ public class PasswordValidator {
         }  return false;
     }
 
-    public static boolean hasCorrectChars(char[] characters) {
+    public static void hasCorrectChars(char[] characters) {
         int hasUpperCase = 0;
         int hasLowerCase = 0;
         int hasDigit = 0;
@@ -56,7 +50,7 @@ public class PasswordValidator {
                 hasSpecialChar++;
             }
             if (hasUpperCase > 0 && hasLowerCase > 0 && hasDigit > 0 && hasSpecialChar > 0) {
-                return true;
+                break;
             }
         }
         if (hasUpperCase == 0) {
@@ -79,6 +73,5 @@ public class PasswordValidator {
                     "A password should contain at least one special character."
             );
         }
-        return false;
     }
 }
