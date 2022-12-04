@@ -12,13 +12,12 @@ public class PhoneDictionary {
     public ArrayList<Person> find(String key) {
         ArrayList<Person> result = new ArrayList<>();
         for (Person person : persons) {
-        String data = person.getName() + person.getSurname()
-                + person.getPhone() + person.getAddress();
-        if (data.contains(key)) {
-            result.add(person);
+            String data = person.getName() + person.getSurname()
+                    + person.getPhone() + person.getAddress();
+            if (data.contains(key)) {
+                result.add(person);
+            }
         }
-        }
-
         return result;
     }
 }
