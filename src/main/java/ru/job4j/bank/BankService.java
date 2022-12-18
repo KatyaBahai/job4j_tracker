@@ -16,15 +16,16 @@ public class BankService {
     }
 
     public boolean deleteUser(String passport) {
-        List<Account> deleted = users.remove(findByPassport(passport));
-        return deleted != null;
+        return users.remove(new User(passport, "")) != null;
     }
 
     public void addAccount(String passport, Account account) {
         User user = findByPassport(passport);
-        List<Account> accounts = users.get(user);
-        if (!accounts.contains(account)) {
-            accounts.add(account);
+        if (user != null) {
+            List<Account> accounts = users.get(user);
+            if (!accounts.contains(account)) {
+                accounts.add(account);
+            }
         }
     }
 
@@ -38,13 +39,14 @@ public class BankService {
     }
 
     public Account findByRequisite(String passport, String requisite) {
-        List<Account> accounts = users.get(findByPassport(passport));
-        if (accounts != null) {
-            for (Account account : accounts) {
-                if (account.getRequisite().equals(requisite)) {
-                    return account;
+        User user = findByPassport(passport);
+        if (user != null) {
+            List<Account> accounts = users.get(user);
+                for (Account account : accounts) {
+                    if (account.getRequisite().equals(requisite)) {
+                        return account;
+                    }
                 }
-            }
         }
         return null;
     }
@@ -54,14 +56,11 @@ public class BankService {
         boolean rsl = false;
         Account account1 = findByRequisite(srcPassport, srcRequisite);
         Account account2 = findByRequisite(destPassport, destRequisite);
-        User user1 = findByPassport(srcPassport);
-        User user2 = findByPassport(destPassport);
-        List<Account> accounts1 = users.get(user1);
-        List<Account> accounts2 = users.get(user2);
-        if (accounts1.contains(account1) && accounts2.contains(account2) && amount <= account1.getBalance()) {
+
+        if (account1 != null && account2 != null && amount <= account1.getBalance()) {
             account1.setBalance(account1.getBalance() - amount);
-        account2.setBalance(account2.getBalance() + amount);
-        rsl = true;
+            account2.setBalance(account2.getBalance() + amount);
+            rsl = true;
     }
         return rsl;
     }
