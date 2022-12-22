@@ -29,14 +29,10 @@ public class ReconstructPhrase {
     private String getDescendingElements() {
         StringBuilder stringBuilder = new StringBuilder();
         int size = descendingElements.size();
-        Deque<Character> deque = new LinkedList<>();
-        for (Character character : descendingElements) {
-            deque.add(character);
-        }
         for (int i = 0; i < size; i++) {
-            stringBuilder.append(deque.pollLast());
+            stringBuilder.append(descendingElements.poll());
         }
-        return stringBuilder.toString();
+        return stringBuilder.reverse().toString();
     }
 
     public String getReconstructPhrase() {
