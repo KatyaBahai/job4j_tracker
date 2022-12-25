@@ -2,8 +2,19 @@ package ru.job4j.bank;
 
 import java.util.Objects;
 
+/**
+        * Класс описывает пользователя банковского сервиса.
+        * @author EKATERINA SHCHERBAKOVA
+        * @version 1.0
+        */
 public class User {
+    /**
+     * В поле passport хранится номер парспорта пользователя
+     */
     private String passport;
+    /**
+     * В поле username хранится имя пользователя
+     */
     private String username;
 
     public User(String passport, String username) {

@@ -2,8 +2,19 @@ package ru.job4j.bank;
 
 import java.util.Objects;
 
+/**
+ * Класс описывает счет для сервиса банка.
+ * @author EKATERINA SHCHERBAKOVA
+ * @version 1.0
+ */
 public class Account {
+    /**
+     * Поле requisite указывает на реквизиты банковского счета
+     */
     private String requisite;
+    /**
+     * После balance указывает на сумму денег на счету клиента
+     */
     private double balance;
 
     public Account(String requisite, double balance) {
