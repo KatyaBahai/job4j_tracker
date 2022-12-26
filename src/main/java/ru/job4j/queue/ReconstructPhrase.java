@@ -4,11 +4,11 @@ import java.util.*;
 
 public class ReconstructPhrase {
 
-    private final Queue<Character> descendingElements;
+    private final Deque<Character> descendingElements;
 
-    private final Queue<Character> evenElements;
+    private final Deque<Character> evenElements;
 
-    public ReconstructPhrase(Queue<Character> descendingElements, Queue<Character> evenElements) {
+    public ReconstructPhrase(Deque<Character> descendingElements, Deque<Character> evenElements) {
         this.descendingElements = descendingElements;
         this.evenElements = evenElements;
     }
@@ -30,9 +30,9 @@ public class ReconstructPhrase {
         StringBuilder stringBuilder = new StringBuilder();
         int size = descendingElements.size();
         for (int i = 0; i < size; i++) {
-            stringBuilder.append(descendingElements.poll());
+            stringBuilder.append(descendingElements.pollLast());
         }
-        return stringBuilder.reverse().toString();
+        return stringBuilder.toString();
     }
 
     public String getReconstructPhrase() {
