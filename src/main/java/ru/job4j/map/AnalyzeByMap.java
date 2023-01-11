@@ -8,7 +8,7 @@ public class AnalyzeByMap {
         int counter = 0;
         for (Pupil pupil : pupils) {
             for (Subject subject : pupil.subjects()) {
-                sum += subject.score();
+                sum += subject.getScore();
                 counter++;
             }
         }
@@ -21,7 +21,7 @@ public class AnalyzeByMap {
             double sum = 0D;
             int counter = 0;
             for (Subject subject : pupil.subjects()) {
-                sum += subject.score();
+                sum += subject.getScore();
                 counter++;
             }
             Label label = new Label(pupil.name(), sum / counter);
@@ -36,8 +36,8 @@ public class AnalyzeByMap {
         Map<String, Integer> subjectsMap = new LinkedHashMap<>();
         for (Pupil pupil : pupils) {
             for (Subject subject : pupil.subjects()) {
-                subjectsMap.put(subject.name(),
-                        subjectsMap.getOrDefault(subject.name(), 0) + subject.score());
+                subjectsMap.put(subject.getName(),
+                        subjectsMap.getOrDefault(subject.getName(), 0) + subject.getScore());
             }
             countPupils++;
         }
@@ -53,7 +53,7 @@ public class AnalyzeByMap {
             for (Pupil pupil : pupils) {
                 double sum = 0D;
                 for (Subject subject : pupil.subjects()) {
-                    sum += subject.score();
+                    sum += subject.getScore();
             }
                 labels.add(new Label(pupil.name(), sum));
             }
@@ -66,8 +66,8 @@ public class AnalyzeByMap {
         Map<String, Integer> subjectsMap = new LinkedHashMap<>();
         for (Pupil pupil : pupils) {
             for (Subject subject : pupil.subjects()) {
-                subjectsMap.put(subject.name(),
-                        subjectsMap.getOrDefault(subject.name(), 0) + subject.score());
+                subjectsMap.put(subject.getName(),
+                        subjectsMap.getOrDefault(subject.getName(), 0) + subject.getScore());
             }
         }
         for (String name : subjectsMap.keySet()) {
