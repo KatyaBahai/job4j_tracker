@@ -63,11 +63,11 @@ public class SqlTracker implements Store {
     public boolean replace(int id, Item item) {
         boolean rsl = false;
         try (PreparedStatement statement = cn.prepareStatement(
-                "UPDATE TABLE items SET name = ?, created = ? WHERE id = ?")) {
+                "UPDATE items SET name = ?, created = ? WHERE id = ?")) {
             statement.setString(1, item.getName());
             statement.setTimestamp(2, Timestamp.valueOf(item.getLocalDateTime()));
             statement.setInt(3, id);
-            rsl = statement.execute();
+            rsl = statement.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
