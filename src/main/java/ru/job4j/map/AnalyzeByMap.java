@@ -67,9 +67,6 @@ public class AnalyzeByMap {
             for (Subject subject : pupil.subjects()) {
 
                 subjectsMap.merge(subject.getName(), subject.getScore(), Integer::sum);
-
-              //  subjectsMap.put(subject.getName(),
-               //         subjectsMap.getOrDefault(subject.getName(), 0) + subject.getScore());
             }
         }
         for (String name : subjectsMap.keySet()) {
