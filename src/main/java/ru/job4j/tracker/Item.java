@@ -1,13 +1,16 @@
 package ru.job4j.tracker;
 
+import lombok.Data;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Objects;
+import java.time.temporal.ChronoUnit;
 
+@Data
 public class Item {
     private int id;
     private String name;
-    private LocalDateTime created = LocalDateTime.now();
+    private LocalDateTime created = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
     private static final DateTimeFormatter FORMATTER =
             DateTimeFormatter.ofPattern("dd-MMMM-EEEE-yyyy HH:mm:ss");
 
@@ -36,43 +39,5 @@ public class Item {
                 + name + '\'' + ", created="
                 + created.format(FORMATTER)
                 + '}';
-    }
-
-    public LocalDateTime getLocalDateTime() {
-        return created;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Item item = (Item) o;
-        return Objects.equals(getId(), item.getId())
-                && Objects.equals(getName(), item.getName());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getName());
     }
 }
