@@ -1,14 +1,18 @@
 package ru.job4j.tracker;
 
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 @Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Item {
+    @Getter
+    @Setter
     private int id;
+    @EqualsAndHashCode.Include
     private String name;
     private LocalDateTime created = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
     private static final DateTimeFormatter FORMATTER =
