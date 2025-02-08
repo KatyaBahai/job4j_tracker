@@ -6,11 +6,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Item {
-    @Getter
-    @Setter
     private int id;
     @EqualsAndHashCode.Include
     private String name;
