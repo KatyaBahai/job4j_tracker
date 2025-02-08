@@ -9,9 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@RequiredArgsConstructor
 public class Permission {
-    @NonNull
     @EqualsAndHashCode.Include
     private int id;
     private String name;
