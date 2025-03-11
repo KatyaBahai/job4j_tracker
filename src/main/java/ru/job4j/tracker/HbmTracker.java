@@ -19,14 +19,22 @@ public class HbmTracker implements Store, AutoCloseable {
     @Override
     public Item add(Item item) {
         Session session = null;
+        Transaction tx = null;
         try {
             session = sf.openSession();
-            session.beginTransaction();
+            tx = session.beginTransaction();
             session.save(item);
-            session.getTransaction().commit();
+            tx.commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
+            if (tx != null) {
+                tx.rollback();
+            }
             e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+
         }
         return item;
     }
@@ -35,43 +43,56 @@ public class HbmTracker implements Store, AutoCloseable {
     public boolean replace(int id, Item item) {
         boolean replaced = false;
         Session session = null;
+        Transaction tx = null;
         try {
             session = sf.openSession();
-            session.beginTransaction();
+            tx = session.beginTransaction();
             Item existingItem = session.get(Item.class, id);
             if (existingItem != null) {
                 existingItem.setName(item.getName());
                 existingItem.setCreated(item.getCreated());
                 session.update(existingItem);
-                session.getTransaction().commit();
+                tx.commit();
                 replaced = true;
             } else {
                 System.out.println("There's no item with id " + id);
             }
         } catch (Exception e) {
-            session.getTransaction().rollback();
+            if (tx != null) {
+                tx.rollback();
+            }
             e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
-        session.close();
         return replaced;
     }
 
     @Override
     public boolean delete(int id) {
         boolean deleted = false;
-        Transaction transaction = null;
-        try (Session session = sf.openSession()) {
-            transaction = session.beginTransaction();
+        Session session = null;
+        Transaction tx = null;
+        try {
+            session = sf.openSession();
+            tx = session.beginTransaction();
             session.createQuery("DELETE Item WHERE id = :id")
                     .setParameter("id", id)
                     .executeUpdate();
-            session.getTransaction().commit();
+            tx.commit();
             deleted = true;
         } catch (Exception e) {
             e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
+            if (tx != null) {
+                tx.rollback();
             }
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+
         }
         return deleted;
     }
