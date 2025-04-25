@@ -6,6 +6,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.TimeZone;
 
 public class DateRun {
     public static void main(String[] args) {
@@ -14,8 +15,8 @@ public class DateRun {
         try (var sf = new MetadataSources(registry)
                 .buildMetadata().buildSessionFactory()) {
             var session = sf
-                    //.withOptions()
-                   // .jdbcTimeZone(TimeZone.getTimeZone("UTC"))
+                    .withOptions()
+                   .jdbcTimeZone(TimeZone.getTimeZone("UTC"))
                     .openSession();
             session.beginTransaction();
             var item = new Item();
