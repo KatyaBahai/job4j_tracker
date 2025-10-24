@@ -13,12 +13,19 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>17</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <docker_db_url_jdbc>jdbc:postgresql://db:5432/tracker</docker_db_url_jdbc>
     </properties>
     <profiles>
         <profile>
             <id>test</id>
             <properties>
-                <liquibase.config>db/liquibase_test.properties</liquibase.config>
+                <liquibase.changeLogFile>db/dbchangelog.xml</liquibase.changeLogFile>
+                <liquibase.url>jdbc:h2:./testdb;MODE=PostgreSQL;CASE_INSENSITIVE_IDENTIFIERS=TRUE;</liquibase.url>
+                <liquibase.username></liquibase.username>
+                <liquibase.password></liquibase.password>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -27,7 +34,19 @@
         <profile>
             <id>production</id>
             <properties>
-                <liquibase.config>db/liquibase.properties</liquibase.config>
+                <liquibase.changeLogFile>db/dbchangelog.xml</liquibase.changeLogFile>
+                <liquibase.url>jdbc:postgresql://127.0.0.1:5432/tracker</liquibase.url>
+                <liquibase.username>postgres</liquibase.username>
+                <liquibase.password>password</liquibase.password>
+            </properties>
+        </profile>
+        <profile>
+            <id>docker</id>
+            <properties>
+                <liquibase.changeLogFile>db/dbchangelog.xml</liquibase.changeLogFile>
+                <liquibase.url>${docker_db_url_jdbc}</liquibase.url>
+                <liquibase.username>postgres</liquibase.username>
+                <liquibase.password>password</liquibase.password>
             </properties>
         </profile>
     </profiles>
@@ -120,7 +139,7 @@
                 <executions>
                     <execution>
                         <id>validate</id>
-                        <phase>validate</phase>
+                        <phase>verify</phase>
                         <configuration>
                             <configLocation>checkstyle.xml</configLocation>
                             <encoding>UTF-8</encoding>
@@ -147,7 +166,10 @@
                 <artifactId>liquibase-maven-plugin</artifactId>
                 <version>4.15.0</version>
                 <configuration>
-                    <propertyFile>${liquibase.config}</propertyFile>
+                    <changeLogFile>${liquibase.changeLogFile}</changeLogFile>
+                    <url>${liquibase.url}</url>
+                    <username>${liquibase.username}</username>
+                    <password>${liquibase.password}</password>
                 </configuration>
                 <executions>
                     <execution>
@@ -156,6 +178,27 @@
                             <goal>clearCheckSums</goal>
                             <goal>update</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>tracker</finalName>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>ru.job4j.tracker.StartUI</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
